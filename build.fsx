@@ -116,7 +116,7 @@ let testNetCoreDir = root </> "tests" </> "bin" </> "Release" </> "netcoreapp2.0
 
 
 Target.create "Test" (fun _ ->
-    //build Tests.projectFile "netcoreapp2.0"
+    build Tests.projectFile "netcoreapp2.0"
     build Tests.projectFile "net461"
 
     if Environment.isUnix then
@@ -124,9 +124,9 @@ Target.create "Test" (fun _ ->
     else
         run (testNetFrameworkDir </> "Tests.exe") root []
 
-    //let result = DotNet.exec (dtntWorkDir testNetCoreDir) "" "Tests.dll"
+    let result = DotNet.exec (dtntWorkDir testNetCoreDir) "" "Tests.dll"
 
-    //if not result.OK then failwithf "Expecto for netcore tests failed."
+    if not result.OK then failwithf "Expecto for netcore tests failed."
 )
 
 let needsPublishing (versionRegex: Regex) (newVersion: string) projFile =
