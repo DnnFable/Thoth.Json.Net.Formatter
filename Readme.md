@@ -1,5 +1,7 @@
 # Thoth.Json.Net.Formatter
 
+[![Nuget](https://img.shields.io/nuget/v/Thoth.Json.Net.Formatter)](https://www.nuget.org/packages/Thoth.Json.Net.Formatter/)
+
 `Thoth.Json.Net.Formatter` is a JsonMediaTypeFormatter which can be used with Asp.Net WebApi to handle requests from `Thoth.Fetch` and uses `Thoth.Json.Net` for encoding and decoding.
 
 ## Example for using the formatter within your service
