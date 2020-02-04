@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <Description>JSON Formatter based on Thoth.Json.Net</Description>
-
+        <OutputType>Library</OutputType>
         <PackageTags>fsharp;json</PackageTags>
         <Authors>Stefan Cullmann</Authors>
-        <Version>0.1.0</Version>
-        <TargetFrameworks>net46</TargetFrameworks>
+        <Version>0.2.0</Version>
+        <AssemblyName>Thoth.Json.Net.Formatter</AssemblyName>
+        <TargetFrameworks>net472</TargetFrameworks>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageProjectUrl>https://github.com/SCullman/Thoth.Json.Net.Formatter</PackageProjectUrl>
@@ -13,5 +14,16 @@
     <ItemGroup>
         <Compile Include="Formatter.fs" />
     </ItemGroup>
+       
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Numerics" />
+  </ItemGroup>
     <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

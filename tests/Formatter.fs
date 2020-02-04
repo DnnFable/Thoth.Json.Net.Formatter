@@ -69,10 +69,10 @@ let tests : Test =
                 let json = "\"fable\""
                 decode json
                 |> equal (Some "fable")
-            //testCase "works for enum" <| fun _ ->               
-            //    let json = "2"
-            //    decode json
-            //    |> equal (System.DayOfWeek.Tuesday)
+            testCase "works for enum" <| fun _ ->               
+                let json = "2"
+                decode json
+                |> equal (System.DayOfWeek.Tuesday)
             testCase "works for simple union" <| fun _ ->               
                 let json = "\"Bar\""
                 decode json
@@ -103,10 +103,10 @@ let tests : Test =
                 let json = "\"fable\""
                 encode "fable"
                 |> equal json
-            //testCase "works for enum" <| fun _ ->               
-            //    let json = "2"
-            //    decode json
-            //    |> equal (System.DayOfWeek.Tuesday)
+            testCase "works for enum" <| fun _ ->               
+                let json = "2"
+                decode json
+                |> equal (System.DayOfWeek.Tuesday)
             testCase "works for simple union" <| fun _ ->               
                 let json = "\"Bar\""
                 encode Bar

@@ -21,12 +21,12 @@ type Formatter (?isCamelCase : bool, ?extra : ExtraCoders, ?intendation : int) a
 
     do base.UseDataContractJsonSerializer <- false
     
-    let failIfNull o =  if isNull o then raise (ArgumentNullException <| nameof o)
+    let failIfNull (o) t =  if isNull o then raise (ArgumentNullException ("Should not be Null: " + t))
 
     override __.ReadFromStreamAsync (t, readStream, _, _) = 
         async {
-            failIfNull t 
-            failIfNull readStream 
+            failIfNull t "Type"
+            failIfNull readStream "ReadStream" 
             let decoder = Decode.Auto.LowLevel.generateDecoderCached(t, ?isCamelCase=isCamelCase, ?extra=extra)
             use jsonReader = new StreamReader(readStream)
             let! json = jsonReader.ReadToEndAsync() |> Async.AwaitTask
@@ -35,8 +35,8 @@ type Formatter (?isCamelCase : bool, ?extra : ExtraCoders, ?intendation : int) a
         |> Async.StartAsTask
 
     override __.WriteToStreamAsync (t, value, writeStream, _, _) =
-        failIfNull t 
-        failIfNull writeStream 
+        failIfNull t "Type"
+        failIfNull writeStream "WriteStream" 
         let encoder = Encode.Auto.LowLevel.generateEncoderCached(t, ?isCamelCase=isCamelCase, ?extra=extra)
         encoder value |> writeToStream (defaultArg  intendation 0) writeStream 
         Task.FromResult writeStream :> Task
