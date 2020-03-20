@@ -16,7 +16,7 @@ let private writeToStream (intendation:int) (stream:Stream) (token:JsonValue)  =
     token.WriteTo(jsonWriter)
     jsonWriter.Flush()
 
-type Formatter (?isCamelCase : bool, ?extra : ExtraCoders, ?intendation : int) as __ =
+type Formatter (?caseStrategy:CaseStrategy, ?extra : ExtraCoders, ?intendation : int) as __ =
     inherit JsonMediaTypeFormatter()
 
     do base.UseDataContractJsonSerializer <- false
@@ -27,7 +27,7 @@ type Formatter (?isCamelCase : bool, ?extra : ExtraCoders, ?intendation : int) a
         async {
             failIfNull t "Type"
             failIfNull readStream "ReadStream" 
-            let decoder = Decode.Auto.LowLevel.generateDecoderCached(t, ?isCamelCase=isCamelCase, ?extra=extra)
+            let decoder = Decode.Auto.LowLevel.generateDecoderCached(t, ?caseStrategy=caseStrategy, ?extra=extra)
             use jsonReader = new StreamReader(readStream)
             let! json = jsonReader.ReadToEndAsync() |> Async.AwaitTask
             let obj = Decode.unsafeFromString decoder json 
@@ -37,9 +37,9 @@ type Formatter (?isCamelCase : bool, ?extra : ExtraCoders, ?intendation : int) a
     override __.WriteToStreamAsync (t, value, writeStream, _, _) =
         failIfNull t "Type"
         failIfNull writeStream "WriteStream" 
-        let encoder = Encode.Auto.LowLevel.generateEncoderCached(t, ?isCamelCase=isCamelCase, ?extra=extra)
+        let encoder = Encode.Auto.LowLevel.generateEncoderCached(t, ?caseStrategy=caseStrategy, ?extra=extra)
         encoder value |> writeToStream (defaultArg  intendation 0) writeStream 
         Task.FromResult writeStream :> Task
      
     new() = Formatter(false)
-    new(intendation) = Formatter(?isCamelCase =Some false, ?intendation = Some intendation)
+    new(intendation) = Formatter(?caseStrategy=Some CaseStrategy.PascalCase, ?intendation = Some (if intendation then 4 else 0))

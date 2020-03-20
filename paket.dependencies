@@ -6,4 +6,4 @@ nuget Newtonsoft.Json >= 11.0.2 lowest_matching:true
 nuget Expecto
 nuget Fable.Core ~> 3 framework: netstandard2.0
 nuget Microsoft.AspNet.WebApi.Client ~> 5.2.3.0
-nuget Thoth.Json.Net
+nuget Thoth.Json.Net ~> 4.0

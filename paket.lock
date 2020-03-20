@@ -6,11 +6,11 @@ NUGET
       FSharp.Core (>= 4.3.4)
       Mono.Cecil (>= 0.11)
     Fable.Core (3.1.4) - restriction: && (== net472) (== netstandard2.0)
-    FSharp.Core (4.7) - redirects: force
+    FSharp.Core (4.7.1) - redirects: force
     Microsoft.AspNet.WebApi.Client (5.2.3)
       Newtonsoft.Json (>= 6.0.4)
     Mono.Cecil (0.11.1)
     Newtonsoft.Json (11.0.2)
-    Thoth.Json.Net (3.6)
+    Thoth.Json.Net (4.0)
       FSharp.Core (>= 4.6.2)
       Newtonsoft.Json (>= 11.0.2)
